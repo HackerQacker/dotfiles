@@ -13,7 +13,7 @@ sudo $(1)
 endef
 endif
 
-all:
+all: $(PACAPT)
 
 $(PACAPT):
 	$(call maybesudo, wget -O ${PACAPT} https://github.com/icy/pacapt/raw/ng/pacapt)
