@@ -6,10 +6,15 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
+Plug 'tpope/vim-dispatch'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
+Plug 'fatih/vim-go'
+Plug 'arakashic/chromatica.nvim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
+set number relativenumber
 
 " vim-tmux-navigator customizations
 let g:tmux_navigator_disable_when_zoomed = 1
@@ -24,4 +29,11 @@ nmap <C-n> :NERDTreeToggle<CR>
 
 " TODO: nerdcommenter shits
 
+" Markdown settings
+" used to open the preview in a kind of popup window (instead of just using
+" the default browser)
+function! g:Open_chrome_in_new_popup(url)
+    silent exe 'silent !open -na "Google Chrome" --args --app=' . a:url
+endfunction
+let g:mkdp_browserfunc='g:Open_chrome_in_new_popup'
 
