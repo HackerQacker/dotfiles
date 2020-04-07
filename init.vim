@@ -33,6 +33,7 @@ nmap <C-n> :NERDTreeToggle<CR>
 " used to open the preview in a kind of popup window (instead of just using
 " the default browser)
 function! g:Open_chrome_in_new_popup(url)
+    " TODO: make it somehow multi platform compatible
     silent exe 'silent !open -na "Google Chrome" --args --app=' . a:url
 endfunction
 let g:mkdp_browserfunc='g:Open_chrome_in_new_popup'
