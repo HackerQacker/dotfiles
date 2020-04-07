@@ -32,9 +32,14 @@ nmap <C-n> :NERDTreeToggle<CR>
 " Markdown settings
 " used to open the preview in a kind of popup window (instead of just using
 " the default browser)
-function! g:Open_chrome_in_new_popup(url)
-    " TODO: make it somehow multi platform compatible
+function! g:Open_mac_chrome_in_new_popup(url)
     silent exe 'silent !open -na "Google Chrome" --args --app=' . a:url
 endfunction
-let g:mkdp_browserfunc='g:Open_chrome_in_new_popup'
+
+" TODO: could easily be implemented to all unix platforms, at the moment I
+" only use markdown preview on my mac
+let s:uname = system("uname -s")
+if s:uname == "Darwin\n"
+  let g:mkdp_browserfunc='g:Open_mac_chrome_in_new_popup'
+endif
 
