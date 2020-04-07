@@ -18,6 +18,8 @@ fi
 # Aliases
 alias logview='lnav'
 alias clearfile='cat /dev/null > '
+# For convenience
+alias vim=nvim
 
 # Some zsh tools
 autoload zcalc
