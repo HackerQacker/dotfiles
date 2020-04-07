@@ -2,13 +2,14 @@ PACAPT=/usr/local/bin/pacapt
 
 export OS_NAME := $(shell uname | tr '[:upper:]' '[:lower:]')
 
-ifeq ($(OS_NAME), "darwin")
+ifeq ($(OS_NAME), darwin)
 define maybesudo
+@echo 'On macOS, we should never run sudo, right..?'
 $(1)
 endef
 else
 define maybesudo
-@echo 'Not on macOS, su SUDOing this command'
+@echo 'Not on macOS, so SUDOing this command'
 sudo $(1)
 endef
 endif
@@ -25,5 +26,6 @@ endef
 
 include ${CURDIR}/zsh.mk
 include ${CURDIR}/tmux.mk
+include ${CURDIR}/vim.mk
 
 all: setup
