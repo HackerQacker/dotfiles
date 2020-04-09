@@ -4,30 +4,33 @@ call plug#begin('~/.vim/plugged')
 " Declare the list of plugins.
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'preservim/nerdcommenter'
+Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdtree'
-Plug 'tpope/vim-dispatch'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 Plug 'fatih/vim-go'
-Plug 'arakashic/chromatica.nvim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
+let mapleader = " "
+"filetype plugin on
 set number relativenumber
+
+set tabstop=4
+set shiftwidth=4
+set smarttab
 
 " vim-tmux-navigator customizations
 let g:tmux_navigator_disable_when_zoomed = 1
 let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> <M-Left> :TmuxNavigateLeft<cr>
-nnoremap <silent> <M-Right> :TmuxNavigateRight<cr>
-nnoremap <silent> <M-Up> :TmuxNavigateUp<cr>
-nnoremap <silent> <M-Down> :TmuxNavigateDown<cr>
-"nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+nmap <silent> <M-Left> :TmuxNavigateLeft<CR>
+nmap <silent> <M-Right> :TmuxNavigateRight<CR>
+nmap <silent> <M-Up> :TmuxNavigateUp<CR>
+nmap <silent> <M-Down> :TmuxNavigateDown<CR>
+"nmap <silent> <M-/> :TmuxNavigatePrevious<cr>
 
 nmap <C-n> :NERDTreeToggle<CR>
-
-" TODO: nerdcommenter shits
 
 " Markdown settings
 " used to open the preview in a kind of popup window (instead of just using
@@ -40,6 +43,6 @@ endfunction
 " only use markdown preview on my mac
 let s:uname = system("uname -s")
 if s:uname == "Darwin\n"
-  let g:mkdp_browserfunc='g:Open_mac_chrome_in_new_popup'
+	let g:mkdp_browserfunc='g:Open_mac_chrome_in_new_popup'
 endif
 
