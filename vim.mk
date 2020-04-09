@@ -7,7 +7,7 @@ setup: setup-nvim
 setup-nvim: install-nvim $(NVIM_PLUG) link-nviminit
 
 install-nvim: $(PACAPT)
-	$(call pacapt, install nvim)
+	$(call pacapt, install neovim)
 
 link-nviminit: $(NVIM_CONFIG)
 	ln -s ${CURDIR}/init.vim $(NVIM_CONFIG)
