@@ -4,6 +4,8 @@ call plug#begin('~/.vim/plugged')
 " Declare the list of plugins.
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdtree'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
@@ -29,6 +31,8 @@ nmap <silent> <M-Right> :TmuxNavigateRight<CR>
 nmap <silent> <M-Up> :TmuxNavigateUp<CR>
 nmap <silent> <M-Down> :TmuxNavigateDown<CR>
 "nmap <silent> <M-/> :TmuxNavigatePrevious<cr>
+
+let g:deoplete#enable_at_startup = 1
 
 nmap <C-n> :NERDTreeToggle<CR>
 
