@@ -23,6 +23,18 @@ set tabstop=4
 set shiftwidth=4
 set smarttab
 
+"""""""""" Copy and paste to system clipboard
+set clipboard+=unnamedplus
+" vmap <leader>y "+y
+" vmap <leader>d "+d
+" nmap <leader>p "+p
+" nmap <leader>P "+P
+" vmap <leader>p "+p
+" vmap <leader>P "+P
+
+"""""""""" Easy save
+nmap <C-s> :w<CR>
+
 """""""""" vim-tmux-navigator customizations
 let g:tmux_navigator_disable_when_zoomed = 1
 let g:tmux_navigator_no_mappings = 1
