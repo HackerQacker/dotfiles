@@ -11,6 +11,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 Plug 'fatih/vim-go'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'tomasr/molokai'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -35,16 +37,16 @@ set clipboard+=unnamedplus
 """""""""" Easy save
 nmap <C-s> :w<CR>
 
+colorscheme molokai
+
 """""""""" vim-tmux-navigator customizations
 let g:tmux_navigator_disable_when_zoomed = 1
 let g:tmux_navigator_no_mappings = 1
-nmap <silent> <M-Left> :TmuxNavigateLeft<CR>
-nmap <silent> <M-Right> :TmuxNavigateRight<CR>
-nmap <silent> <M-Up> :TmuxNavigateUp<CR>
-nmap <silent> <M-Down> :TmuxNavigateDown<CR>
+nnoremap <silent> <M-Left> :TmuxNavigateLeft<CR>
+nnoremap <silent> <M-Right> :TmuxNavigateRight<CR>
+nnoremap <silent> <M-Up> :TmuxNavigateUp<CR>
+nnoremap <silent> <M-Down> :TmuxNavigateDown<CR>
 "nmap <silent> <M-/> :TmuxNavigatePrevious<cr>
-
-let g:deoplete#enable_at_startup = 1
 
 nmap <C-n> :NERDTreeToggle<CR>
 
@@ -71,7 +73,7 @@ inoremap <silent><expr> <M-space> coc#refresh()
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 " Symbol renaming.
-nmap <F6> <Plug>(coc-rename)
+nnoremap <F6> <Plug>(coc-rename)
 " Use <Tab> and <S-Tab> to navigate the completion list:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
