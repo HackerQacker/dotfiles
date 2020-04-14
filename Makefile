@@ -24,6 +24,7 @@ define pacapt
 $(call maybesudo, ${PACAPT} $(1))
 endef
 
+include ${CURDIR}/alacritty.mk
 include ${CURDIR}/zsh.mk
 include ${CURDIR}/tmux.mk
 include ${CURDIR}/vim.mk
