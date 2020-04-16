@@ -12,7 +12,6 @@ Plug 'fatih/vim-go'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
-Plug 'tomasr/molokai'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -27,17 +26,13 @@ set smarttab
 
 """""""""" Copy and paste to system clipboard
 set clipboard+=unnamedplus
-" vmap <leader>y "+y
-" vmap <leader>d "+d
-" nmap <leader>p "+p
-" nmap <leader>P "+P
-" vmap <leader>p "+p
-" vmap <leader>P "+P
+
+" For not having some delays
+" Have to remember' if it will be laggy, that's maybe gonna be the case..
+set updatetime=300
 
 """""""""" Easy save
 nmap <C-s> :w<CR>
-
-colorscheme molokai
 
 """""""""" vim-tmux-navigator customizations
 let g:tmux_navigator_disable_when_zoomed = 1
@@ -64,8 +59,12 @@ if s:uname == "Darwin\n"
 	let g:mkdp_browserfunc='g:Open_mac_chrome_in_new_popup'
 endif
 
-"""""""""" coc customizations
+"""""""""" vim-go customizations
+" disable vim-go :GoDef short cut (gd)
+" this is handled by LanguageClient [LC]
+let g:go_def_mapping_enabled = 0
 
+"""""""""" coc customizations
 " Give more space for displaying messages.
 " set cmdheight=2
 " Use <M-space> to trigger completion.
@@ -73,10 +72,24 @@ inoremap <silent><expr> <M-space> coc#refresh()
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 " Symbol renaming.
-nnoremap <F6> <Plug>(coc-rename)
+nmap <F6> <Plug>(coc-rename)
+nmap <leader>rn <Plug>(coc-rename)
 " Use <Tab> and <S-Tab> to navigate the completion list:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Use <cr> to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+" run code actions
+vmap <leader>ca  <Plug>(coc-codeaction-selected)
+nmap <leader>ca  <Plug>(coc-codeaction-selected)
 
+" Custom command for inserting my own type of comment
+command OYComment execute 'normal!' 'I'.split(&commentstring, '%s')[0].'@O.Y: '
+nmap <leader>cc :OYComment<CR>
+vmap <leader>cc :OYComment<CR>
+
+""""""""""" colors
+" I decided it's better to let the terminal (alacritty in my case) to handle
+" colors. So colorschemes are not needed :)
