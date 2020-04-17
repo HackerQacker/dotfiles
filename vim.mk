@@ -14,7 +14,6 @@ link-nviminit: $(NVIM_CONFIG)
 
 install-plugins:
 	nvim --headless +PlugInstall +qall
-	nvim -c 'CocInstall -sync coc-python coc-go coc-json coc-yaml coc-clangd coc-snippet|q'
 
 $(NVIM_PLUG):
 	curl -fLo $@ --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
