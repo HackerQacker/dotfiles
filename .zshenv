@@ -25,3 +25,5 @@ alias vi=nvim
 # Some zsh tools
 autoload zcalc
 
+# A fix for ruby permission issue (mainly relevant for macOS)
+if which ruby >/dev/null && which gem >/dev/null; then PATH="$(ruby -rrubygems -e 'puts Gem.user_dir')/bin:$PATH" fi
