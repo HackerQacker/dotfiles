@@ -44,6 +44,10 @@ autocmd FileType c,cpp setlocal commentstring=//\ %s
 
 """""""""" Easy save
 nmap <C-s> :w<CR>
+nmap <leader>s :w<CR>
+
+"""""""""" Easy quit
+nmap <leader>q :q<CR>
 
 """""""""" vim-tmux-navigator customizations
 let g:tmux_navigator_disable_when_zoomed = 1
@@ -56,7 +60,7 @@ nnoremap <silent> <M-Up> :TmuxNavigateUp<CR>
 inoremap <silent> <M-Up> <ESC>:TmuxNavigateUp<CR>
 nnoremap <silent> <M-Down> :TmuxNavigateDown<CR>
 inoremap <silent> <M-Down> <ESC>:TmuxNavigateDown<CR>
-"nmap <silent> <M-/> :TmuxNavigatePrevious<cr>
+"nnoremap <silent> <M-/> :TmuxNavigatePrevious<cr>
 
 nmap <C-n> :NERDTreeToggle<CR>
 
@@ -69,8 +73,7 @@ endfunction
 
 " TODO: could easily be implemented to all unix platforms, at the moment I
 " only use markdown preview on my mac
-let s:uname = system("uname -s")
-if s:uname == "Darwin\n"
+if has('mac')
 	let g:mkdp_browserfunc='g:Open_mac_chrome_in_new_popup'
 endif
 
