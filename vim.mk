@@ -5,12 +5,16 @@ NVIM_CONFIG=${HOME}/.config/nvim
 setup: setup-nvim
 
 setup-nvim: install-nvim $(NVIM_PLUG) link-nviminit install-plugins
+setup-nvim: link-ideavim
 
 install-nvim: $(PACAPT)
 	$(call pacapt, install neovim)
 
 link-nviminit: $(NVIM_CONFIG)
 	ln -s ${CURDIR}/init.vim $(NVIM_CONFIG)
+
+link-ideavim:
+	ln -s ${CURDIR}/.ideavimrc ${HOME}
 
 install-plugins:
 	nvim --headless +PlugInstall +qall
