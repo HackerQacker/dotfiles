@@ -21,8 +21,8 @@ link-ideavim:
 	ln -s ${CURDIR}/.ideavimrc ${HOME}
 
 install-plugins:
-	nvim --headless -c 'PlugInstall --sync|qall'
-	nvim --headless -c 'CocUpdateSync|qall'
+	nvim --headless +'PlugInstall --sync' +'PlugUpdate' +'qall'
+	nvim --headless +'CocUpdateSync' +'qall'
 
 $(NVIM_PLUG):
 	curl -fLo $@ --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
