@@ -1,20 +1,23 @@
-export OMHZSH_PATH=${HOME}/.oh-my-zsh
+export OMZSH_PATH=${HOME}/.oh-my-zsh
 
 setup: setup-zsh
 
-setup-zsh: install-zsh $(OMHZSH_PATH) link-zsh-env
+setup-zsh: $(ZSH) $(OMZSH_PATH) link-zsh-env
 setup-zsh: SH_NAME=$(shell which zsh) 
 setup-zsh: 
-	$(call maybesudo, chsh $(shell whoami) -s $(SH_NAME))
+	$(call maybesudo, chsh -s $(SH_NAME) $(shell whoami))
 
-install-zsh: $(PACAPT)
+export ZSH = $(shell which zsh)
+$(ZSH): $(PACAPT)
 	$(call pacapt, install zsh)
 
-$(OMHZSH_PATH):
+$(OMZSH_PATH):
 	$(CURDIR)/install_omzsh.sh
 
 link-zsh-env:
+	$(call backup, ${HOME}/.zshrc)
 	# -f bacause installation of oh-my-zsh already creates one
 	ln -s -f ${CURDIR}/.zshrc ${HOME}
-	ln -s ${CURDIR}/.zshenv ${HOME}
+	$(call backup, ${HOME}/.zshenv)
+	ln -s -f ${CURDIR}/.zshenv ${HOME}
 
