@@ -1,0 +1,25 @@
+
+set clipboard+=unnamedplus
+set number relativenumber
+let mapleader = " "
+
+set commentary
+
+" nmap <leader>co :MYCommentNewline<CR>
+
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+nmap <silent> gd :action GotoDeclaration<CR>
+nmap <silent> gy :action GotoTypeDeclaration<CR>
+nmap <silent> gi :action GotoImplementation<CR>
+nmap <silent> gr :action FindUsages<CR>
+nmap <leader>rn :action RenameElement<CR>
+
+nnoremap <leader>f :action FindInPath<CR>
+nnoremap <leader><leader> :action SearchEverywhere<CR>
+
+nmap <C-o> :action Back<CR>
+" nmap <C-o> :action EmmetPreviousEditPoint<CR>
+nmap <C-i> :action Forward<CR>
+" nmap <C-i> :action EmmetNextEditPoint<CR>
+
+

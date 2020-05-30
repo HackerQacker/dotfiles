@@ -5,19 +5,25 @@ NVIM_CONFIG=${HOME}/.config/nvim
 setup: setup-nvim
 
 setup-nvim: install-yarn install-nvim $(NVIM_PLUG) link-nviminit install-plugins
-
-install-yarn: $(PACAPT)
-	$(call pacapt, install yarn)
+setup-nvim: link-ideavim
 
 install-nvim: $(PACAPT)
 	$(call pacapt, install neovim)
+
+# Reuired for some plugins
+install-yarn: $(PACAPT)
+	$(call pacapt, install yarn)
 
 link-nviminit: $(NVIM_CONFIG)
 	$(call backup, ${NVIM_CONFIG}/init.vim})
 	ln -s -f ${CURDIR}/init.vim $(NVIM_CONFIG)
 
+link-ideavim:
+	ln -s -f ${CURDIR}/.ideavimrc ${HOME}
+
 install-plugins:
-	nvim --headless +PlugInstall +qall
+	nvim --headless +'PlugInstall --sync' +'PlugUpdate' +'qall'
+	nvim --headless +'CocInstall -sync' +'CocUpdateSync|q'
 
 $(NVIM_PLUG):
 	curl -fLo $@ --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

@@ -11,23 +11,17 @@ Plug 'fatih/vim-go'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+" Some coc extensions below
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Some coc extensions
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
-Plug 'klaaspieter/coc-sourcekit', {'do': 'yarn install --frozen-lockfile'}
-
+" TODO: remove it when coc has a builtin call hierarchy
+Plug 'm-pilia/vim-ccls', {'do': 'yarn install --frozen-lockfile'}
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
 let mapleader = " "
-"filetype plugin on
+" filetype plugin on
 set number relativenumber
 
 set tabstop=4
@@ -41,17 +35,32 @@ set clipboard+=unnamedplus
 " Have to remember' if it will be laggy, that's maybe gonna be the case..
 set updatetime=300
 
+" Not gonna use the mouse anyway, but it better set so if someone else will
+" use my computer
+set mouse=a
+
+" Nicer commenting for c (based)
+autocmd FileType c,cpp setlocal commentstring=//\ %s
+
 """""""""" Easy save
 nmap <C-s> :w<CR>
+nmap <leader>s :w<CR>
+
+"""""""""" Easy quit
+nmap <leader>q :q<CR>
 
 """""""""" vim-tmux-navigator customizations
 let g:tmux_navigator_disable_when_zoomed = 1
 let g:tmux_navigator_no_mappings = 1
 nnoremap <silent> <M-Left> :TmuxNavigateLeft<CR>
+inoremap <silent> <M-Left> <ESC>:TmuxNavigateLeft<CR>
 nnoremap <silent> <M-Right> :TmuxNavigateRight<CR>
+inoremap <silent> <M-Right> <ESC>:TmuxNavigateRight<CR>
 nnoremap <silent> <M-Up> :TmuxNavigateUp<CR>
+inoremap <silent> <M-Up> <ESC>:TmuxNavigateUp<CR>
 nnoremap <silent> <M-Down> :TmuxNavigateDown<CR>
-"nmap <silent> <M-/> :TmuxNavigatePrevious<cr>
+inoremap <silent> <M-Down> <ESC>:TmuxNavigateDown<CR>
+"nnoremap <silent> <M-/> :TmuxNavigatePrevious<cr>
 
 nmap <C-n> :NERDTreeToggle<CR>
 
@@ -64,8 +73,7 @@ endfunction
 
 " TODO: could easily be implemented to all unix platforms, at the moment I
 " only use markdown preview on my mac
-let s:uname = system("uname -s")
-if s:uname == "Darwin\n"
+if has('mac')
 	let g:mkdp_browserfunc='g:Open_mac_chrome_in_new_popup'
 endif
 
@@ -74,6 +82,24 @@ endif
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
 
+
+"""""""""" coc
+"""""""""" coc extensions
+let g:coc_global_extensions = [
+			\'coc-python',
+			\'coc-rls',
+			\'coc-yaml',
+			\'coc-json',
+			\'coc-snippets',
+			\'coc-highlight',
+			\'coc-go',
+			\'coc-sourcekit',
+			\'coc-markmap',
+			\'coc-clangd',
+			\'coc-tsserver',
+			\'coc-cmake',
+			\'coc-java'
+			\]
 """""""""" coc customizations
 " Give more space for displaying messages.
 " set cmdheight=2
@@ -103,11 +129,33 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 vmap <leader>ca  <Plug>(coc-codeaction-selected)
 nmap <leader>ca  <Plug>(coc-codeaction-selected)
 
+"""""""""" vim-ccls customizations
+" Automatically close a tree buffer when jumping to a location
+let g:ccls_close_on_jump = v:true
+let g:yggdrasil_no_default_maps = 1
+
+""""""""""
+
+"""""""""" FZF customizations
+nnoremap <leader><leader> :Rg<SPACE>
+nnoremap <leader>f :FZF<SPACE>
 
 """""""""" Custom command for inserting my own type of comment
-command OYComment execute 'normal!' 'I'.split(&commentstring, '%s')[0].'@O.Y: '
-nmap <leader>cc :OYComment<CR>
-vmap <leader>cc :OYComment<CR>
+let g:my_comment_prefix = '@O.Y: '
+function! MYCommentNewlineFunc()
+	let pos = getpos('.')
+	let indent_needed = indent(pos[1])
+	call append(pos[1], split(&commentstring, '%s')[0].g:my_comment_prefix)
+	call setpos('.', [pos[0], pos[1]+1, pos[2], pos[3]])
+	normal! ==
+	normal! g$
+endfunction
+command MYCommentNewline call MYCommentNewlineFunc()
+nmap <leader>co :MYCommentNewline<CR>
+
+command MYComment execute 'normal!' 'I'.split(&commentstring, '%s')[0].g:my_comment_prefix
+nmap <leader>cc :MYComment<CR>
+vmap <leader>cc :MYComment<CR>
 
 """"""""""" colors
 " I decided it's better to let the terminal (alacritty in my case) to handle
