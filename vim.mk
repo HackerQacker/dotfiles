@@ -4,13 +4,17 @@ NVIM_CONFIG=${HOME}/.config/nvim
 
 setup: setup-nvim
 
-setup-nvim: install-nvim $(NVIM_PLUG) link-nviminit install-plugins
+setup-nvim: install-yarn install-nvim $(NVIM_PLUG) link-nviminit install-plugins
+
+install-yarn: $(PACAPT)
+	$(call pacapt, install yarn)
 
 install-nvim: $(PACAPT)
 	$(call pacapt, install neovim)
 
 link-nviminit: $(NVIM_CONFIG)
-	ln -s ${CURDIR}/init.vim $(NVIM_CONFIG)
+	$(call backup, ${NVIM_CONFIG}/init.vim})
+	ln -s -f ${CURDIR}/init.vim $(NVIM_CONFIG)
 
 install-plugins:
 	nvim --headless +PlugInstall +qall
