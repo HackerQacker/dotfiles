@@ -24,9 +24,11 @@ let mapleader = " "
 " filetype plugin on
 set number relativenumber
 
+"""""""""" Tabs handling
 set tabstop=4
 set shiftwidth=4
 set smarttab
+command RetabFile execute "normal! gg=G<C-o><C-o>"
 
 """""""""" Copy and paste to system clipboard
 set clipboard+=unnamedplus
@@ -48,6 +50,8 @@ nmap <leader>s :w<CR>
 
 """""""""" Easy quit
 nmap <leader>q :q<CR>
+
+"""""""""" Easy retabbing
 
 """""""""" vim-tmux-navigator customizations
 let g:tmux_navigator_disable_when_zoomed = 1
@@ -81,7 +85,11 @@ endif
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
-
+" a bit nicer better highlighting
+let g:go_highlight_functions = 1
+" better gopls integration?
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 """""""""" coc
 """""""""" coc extensions
