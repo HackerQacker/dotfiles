@@ -87,9 +87,10 @@ endif
 let g:go_def_mapping_enabled = 0
 " a bit nicer better highlighting
 let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
 " better gopls integration?
-let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
+" let g:go_rename_command = 'gopls'
 
 """""""""" coc
 """""""""" coc extensions
