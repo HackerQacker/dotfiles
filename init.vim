@@ -128,8 +128,13 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <F6> <Plug>(coc-rename)
 nmap <leader>rn <Plug>(coc-rename)
 " Use <Tab> and <S-Tab> to navigate the completion list:
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 " Use <cr> to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Highlight the symbol and its references when holding the cursor.
@@ -138,6 +143,10 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 vmap <leader>ca  <Plug>(coc-codeaction-selected)
 nmap <leader>ca  <Plug>(coc-codeaction-selected)
 
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 """""""""" vim-ccls customizations
 " Automatically close a tree buffer when jumping to a location
 let g:ccls_close_on_jump = v:true
@@ -147,7 +156,7 @@ let g:yggdrasil_no_default_maps = 1
 
 """""""""" FZF customizations
 nnoremap <leader><leader> :Rg<SPACE>
-nnoremap <leader>f :FZF<SPACE>
+nnoremap <leader>f :FZF<ENTER>
 
 """""""""" Custom command for inserting my own type of comment
 let g:my_comment_prefix = '@O.Y: '
