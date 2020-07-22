@@ -4,7 +4,7 @@ NVIM_CONFIG=${HOME}/.config/nvim
 
 setup: setup-nvim
 
-setup-nvim: install-nvim install-yarn $(NVIM_PLUG) link-nviminit install-plugins
+setup-nvim: install-yarn install-nvim install-pynvim $(NVIM_PLUG) link-nviminit install-plugins
 setup-nvim: link-ideavim
 
 install-nvim: $(PACAPT)
@@ -14,11 +14,17 @@ install-nvim: $(PACAPT)
 install-yarn: $(PACAPT)
 	$(call pacapt, install yarn)
 
+
+install-pynvim:
+	$(call pacapt, install python3)
+	python3 -m pip install pynvim
+
 link-nviminit: $(NVIM_CONFIG)
-	ln -s ${CURDIR}/init.vim $(NVIM_CONFIG)
+	$(call backup, ${NVIM_CONFIG}/init.vim})
+	ln -s -f ${CURDIR}/init.vim $(NVIM_CONFIG)
 
 link-ideavim:
-	ln -s ${CURDIR}/.ideavimrc ${HOME}
+	ln -s -f ${CURDIR}/.ideavimrc ${HOME}
 
 install-plugins:
 	nvim --headless +'PlugInstall --sync' +'PlugUpdate' +'qall'

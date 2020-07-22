@@ -9,7 +9,8 @@ install-tmux: $(PACAPT)
 
 # install anyway
 link-tmuxconf:
-	ln -s ${CURDIR}/.tmux.conf ${HOME}
+	$(call backup, ${HOME}/.tmux.conf)
+	ln -s -f ${CURDIR}/.tmux.conf ${HOME}
 
 $(TMUX_PLUGIN_MANAGER_PATH):
 	git clone https://github.com/tmux-plugins/tpm $@/tpm
