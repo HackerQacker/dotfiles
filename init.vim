@@ -11,11 +11,12 @@ Plug 'fatih/vim-go'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
-Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+" Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 " Some coc extensions below
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " TODO: remove it when coc has a builtin call hierarchy
 Plug 'm-pilia/vim-ccls', {'do': 'yarn install --frozen-lockfile'}
+Plug 'm-pilia/vim-yggdrasil', {'do': 'yarn install --frozen-lockfile'}
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -58,12 +59,16 @@ let g:tmux_navigator_disable_when_zoomed = 1
 let g:tmux_navigator_no_mappings = 1
 nnoremap <silent> <M-Left> :TmuxNavigateLeft<CR>
 inoremap <silent> <M-Left> <ESC>:TmuxNavigateLeft<CR>
+tnoremap <silent> <M-Left> <c-\><c-n>:TmuxNavigateLeft<CR>
 nnoremap <silent> <M-Right> :TmuxNavigateRight<CR>
 inoremap <silent> <M-Right> <ESC>:TmuxNavigateRight<CR>
+tnoremap <silent> <M-Right> <c-\><c-n>:TmuxNavigateRight<CR>
 nnoremap <silent> <M-Up> :TmuxNavigateUp<CR>
 inoremap <silent> <M-Up> <ESC>:TmuxNavigateUp<CR>
+tnoremap <silent> <M-Up> <c-\><c-n>:TmuxNavigateUp<CR>
 nnoremap <silent> <M-Down> :TmuxNavigateDown<CR>
 inoremap <silent> <M-Down> <ESC>:TmuxNavigateDown<CR>
+tnoremap <silent> <M-Down> <c-\><c-n>:TmuxNavigateDown<CR>
 "nnoremap <silent> <M-/> :TmuxNavigatePrevious<cr>
 
 nmap <C-n> :NERDTreeToggle<CR>
@@ -174,6 +179,9 @@ nmap <leader>co :MYCommentNewline<CR>
 command MYComment execute 'normal!' 'I'.split(&commentstring, '%s')[0].g:my_comment_prefix
 nmap <leader>cc :MYComment<CR>
 vmap <leader>cc :MYComment<CR>
+
+""""""""""" Debugger integration shit
+let g:termdebug_wide=1
 
 """"""""""" colors
 " I decided it's better to let the terminal (alacritty in my case) to handle
