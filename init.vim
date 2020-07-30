@@ -108,7 +108,7 @@ let g:coc_global_extensions = [
 			\'coc-highlight',
 			\'coc-go',
 			\'coc-sourcekit',
-			\'coc-markmap',
+			" \'coc-markmap', " Couldn't see myself using this plugin anymore
 			\'coc-clangd',
 			\'coc-tsserver',
 			\'coc-cmake',
