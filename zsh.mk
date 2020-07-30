@@ -7,7 +7,7 @@ setup-zsh: SH_NAME=$(shell which zsh)
 setup-zsh: 
 	$(call maybesudo, chsh -s $(SH_NAME) $(shell whoami))
 
-export ZSH = $(shell which zsh)
+ZSH = $(shell which zsh)
 $(ZSH): $(PACAPT)
 	$(call pacapt, install zsh)
 
