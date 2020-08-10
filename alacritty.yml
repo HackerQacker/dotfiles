@@ -2,6 +2,8 @@ env:
   # https://github.com/jwilm/alacritty/issues/2566
   LC_CTYPE: UTF-8
 
+alt_send_esc: false
+
 window:
   decorations: buttonless
   # decorations: none
@@ -12,12 +14,12 @@ font:
 key_bindings:
   # (macOS only)
   # Let 'Alt' act like Meta key for brackets (essential for my tmux windows navigation).
-  # https://gist.github.com/eegrok/949034
+  # http://www.meandmark.com/keycodes.html
   - { key: Space, mods: Alt,  chars: "\x1b "}
   - { key: LBracket, mods: Alt,  chars: "\x1b["}
   - { key: RBracket, mods: Alt,  chars: "\x1b]"}
-  # - { key: LBracket, mods: Alt|Shift,  chars: "\x1b{"}
-  # - { key: RBracket, mods: Alt|Shift,  chars: "\x1b}"}
+  - { key: LBracket, mods: Alt|Shift,  chars: "\x1b{"}
+  - { key: RBracket, mods: Alt|Shift,  chars: "\x1b}"}
   - { key: 0x2F, mods: Alt|Shift,  chars: "\x1b>"}
   - { key: Comma, mods: Alt|Shift,  chars: "\x1b<"}
   #- { key: K,      mods: Command, mode: ~Vi, chars: "\x0c"            }
@@ -34,8 +36,10 @@ key_bindings:
   - { key: Q,      mods: Command,            action: Quit             }
   #- { key: W,      mods: Command,            action: Quit             }
   - { key: W,      mods: Command,            action: None             }
-  - { key: N,      mods: Command,            action: SpawnNewInstance }
   - { key: F,      mods: Command|Control,    action: ToggleFullscreen }
+  # Hack
+  - { key: LBracket, mods: Command|Shift,  chars: "\x1b["}
+  - { key: RBracket, mods: Command|Shift,  chars: "\x1b]"}
 
 ################################
 ####         Colors         ####
