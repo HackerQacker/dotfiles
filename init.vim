@@ -42,8 +42,15 @@ set updatetime=300
 " use my computer
 set mouse=a
 
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
 " Nicer commenting for c (based)
 autocmd FileType c,cpp setlocal commentstring=//\ %s
+
+"""""""""" Ah! vim's default splitting side is just annoying
+set splitbelow
+set splitright
 
 """""""""" Easy save
 nmap <C-s> :w<CR>
@@ -52,7 +59,12 @@ nmap <leader>s :w<CR>
 """""""""" Easy quit
 nmap <leader>q :q<CR>
 
-"""""""""" Easy retabbing
+"""""""""" It just make me crazy
+" set nobackup
+" set nowritebackup
+
+"""""""""" So annoying to switch to normal mode within a terminal window...
+tnoremap <Esc> <C-\><C-n>
 
 """""""""" vim-tmux-navigator customizations
 let g:tmux_navigator_disable_when_zoomed = 1
@@ -111,7 +123,8 @@ let g:coc_global_extensions = [
 			\'coc-clangd',
 			\'coc-tsserver',
 			\'coc-cmake',
-			\'coc-java'
+			\'coc-java',
+			\'coc-sh'
 			\]
 """""""""" coc customizations
 " Give more space for displaying messages.
@@ -151,6 +164,15 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+"
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+"""""""""" Python customizations
+command Pyterm :CocCommand 'python.startREPL'
+
+""""""""""
+
 """""""""" vim-ccls customizations
 " Automatically close a tree buffer when jumping to a location
 let g:ccls_close_on_jump = v:true
@@ -160,7 +182,7 @@ let g:yggdrasil_no_default_maps = 1
 
 """""""""" FZF customizations
 nnoremap <leader><leader> :Rg<SPACE>
-nnoremap <leader>f :FZF<ENTER>
+nnoremap <leader>f :FZF<CR>
 
 """""""""" Custom command for inserting my own type of comment
 let g:my_comment_prefix = '@O.Y: '
@@ -181,6 +203,17 @@ vmap <leader>cc :MYComment<CR>
 
 """"""""""" Debugger integration shit
 let g:termdebug_wide=1
+
+"""""""""" Add statusline support.
+" TODO: Add a simple color support
+set statusline=
+set statusline+=%0*%m%r%w
+" set statusline+=%0*\ %<%F
+set statusline+=%0*\ %<%f
+set statusline+=%0*\ %y
+set statusline+=%0*\ %=
+set statusline+=%0*\ %{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline+=%0*\ [%l:%L]
 
 """"""""""" colors
 " I decided it's better to let the terminal (alacritty in my case) to handle
