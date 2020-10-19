@@ -11,7 +11,6 @@ Plug 'fatih/vim-go'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
-" Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 " Some coc extensions below
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " TODO: remove it when coc has a builtin call hierarchy
@@ -64,7 +63,8 @@ nmap <leader>q :q<CR>
 " set nowritebackup
 
 """""""""" So annoying to switch to normal mode within a terminal window...
-tnoremap <Esc> <C-\><C-n>
+" tnoremap <Esc> <C-\><C-n>
+tmap <Esc> <C-\><C-n>
 
 """""""""" vim-tmux-navigator customizations
 let g:tmux_navigator_disable_when_zoomed = 1
@@ -183,6 +183,8 @@ let g:yggdrasil_no_default_maps = 1
 """""""""" FZF customizations
 nnoremap <leader><leader> :Rg<SPACE>
 nnoremap <leader>f :FZF<CR>
+autocmd! FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 """""""""" Custom command for inserting my own type of comment
 let g:my_comment_prefix = '@O.Y: '
