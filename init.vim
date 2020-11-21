@@ -5,9 +5,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'preservim/nerdtree'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
-Plug 'fatih/vim-go'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
@@ -63,27 +62,24 @@ nmap <leader>q :q<CR>
 " set nowritebackup
 
 """""""""" So annoying to switch to normal mode within a terminal window...
-" tnoremap <Esc> <C-\><C-n>
-tmap <Esc> <C-\><C-n>
+" tmap <Esc> <C-\><C-n>
 
 """""""""" vim-tmux-navigator customizations
 let g:tmux_navigator_disable_when_zoomed = 1
 let g:tmux_navigator_no_mappings = 1
 nnoremap <silent> <M-Left> :TmuxNavigateLeft<CR>
 inoremap <silent> <M-Left> <ESC>:TmuxNavigateLeft<CR>
-tnoremap <silent> <M-Left> <c-\><c-n>:TmuxNavigateLeft<CR>
+tnoremap <silent> <M-Left> <C-\><C-n>:TmuxNavigateLeft<CR>
 nnoremap <silent> <M-Right> :TmuxNavigateRight<CR>
 inoremap <silent> <M-Right> <ESC>:TmuxNavigateRight<CR>
-tnoremap <silent> <M-Right> <c-\><c-n>:TmuxNavigateRight<CR>
+tnoremap <silent> <M-Right> <C-\><C-n>:TmuxNavigateRight<CR>
 nnoremap <silent> <M-Up> :TmuxNavigateUp<CR>
 inoremap <silent> <M-Up> <ESC>:TmuxNavigateUp<CR>
-tnoremap <silent> <M-Up> <c-\><c-n>:TmuxNavigateUp<CR>
+tnoremap <silent> <M-Up> <C-\><C-n>:TmuxNavigateUp<CR>
 nnoremap <silent> <M-Down> :TmuxNavigateDown<CR>
 inoremap <silent> <M-Down> <ESC>:TmuxNavigateDown<CR>
-tnoremap <silent> <M-Down> <c-\><c-n>:TmuxNavigateDown<CR>
+tnoremap <silent> <M-Down> <C-\><C-n>:TmuxNavigateDown<CR>
 "nnoremap <silent> <M-/> :TmuxNavigatePrevious<cr>
-
-nmap <C-n> :NERDTreeToggle<CR>
 
 """""""""" Markdown settings
 " used to open the preview in a kind of popup window (instead of just using
@@ -99,15 +95,18 @@ if has('mac')
 endif
 
 """""""""" vim-go customizations
+let g:go_gopls_enabled = 0
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
-let g:go_def_mapping_enabled = 0
+" let g:go_def_mapping_enabled = 0
+" better gopls integration?
+" let g:go_info_mode='gopls'
+" let g:go_rename_command = 'gopls'
 " a bit nicer better highlighting
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
-" better gopls integration?
-let g:go_info_mode='gopls'
-" let g:go_rename_command = 'gopls'
+let g:go_highlight_types = 1
+" let g:go_highlight_function_parameters = 1
 
 """""""""" coc
 """""""""" coc extensions
@@ -129,8 +128,6 @@ let g:coc_global_extensions = [
 """""""""" coc customizations
 " Give more space for displaying messages.
 " set cmdheight=2
-" Use <M-space> to trigger completion.
-inoremap <silent><expr> <M-space> coc#refresh()
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 " Use `[g` and `]g` to navigate diagnostics
@@ -144,6 +141,8 @@ nmap <silent> gr <Plug>(coc-references)
 " Symbol renaming.
 nmap <F6> <Plug>(coc-rename)
 nmap <leader>rn <Plug>(coc-rename)
+" Use <M-space> to trigger completion.
+inoremap <silent><expr> <M-space> coc#refresh()
 " Use <Tab> and <S-Tab> to navigate the completion list:
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <silent><expr> <TAB>
@@ -182,7 +181,8 @@ let g:yggdrasil_no_default_maps = 1
 
 """""""""" FZF customizations
 nnoremap <leader><leader> :Rg<SPACE>
-nnoremap <leader>f :FZF<CR>
+" nnoremap <leader>f :FZF<CR>
+nnoremap <leader>f :Files<CR>
 autocmd! FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
