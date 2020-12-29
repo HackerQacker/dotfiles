@@ -9,12 +9,16 @@ window:
   # decorations: none
 
 font:
-  size: 12.0
+  size: 14.0
 
 key_bindings:
   # (macOS only)
   # Let 'Alt' act like Meta key for brackets (essential for my tmux windows navigation).
   # http://www.meandmark.com/keycodes.html
+  - { key: H, mods: Alt,  chars: "\x1bh"}
+  - { key: J, mods: Alt,  chars: "\x1bj"}
+  - { key: K, mods: Alt,  chars: "\x1bk"}
+  - { key: L, mods: Alt,  chars: "\x1bl"}
   - { key: Space, mods: Alt,  chars: "\x1b "}
   - { key: LBracket, mods: Alt,  chars: "\x1b["}
   - { key: RBracket, mods: Alt,  chars: "\x1b]"}
@@ -25,7 +29,7 @@ key_bindings:
   #- { key: K,      mods: Command, mode: ~Vi, chars: "\x0c"            }
   - { key: Key0,   mods: Command,            action: ResetFontSize    }
   - { key: Equals, mods: Command,            action: IncreaseFontSize }
-  - { key: Add,    mods: Command,            action: IncreaseFontSize }
+  # - { key: Add,    mods: Command,            action: IncreaseFontSize }
   - { key: Minus,  mods: Command,            action: DecreaseFontSize }
   #- { key: K,      mods: Command,            action: ClearHistory     }
   - { key: V,      mods: Command,            action: Paste            }

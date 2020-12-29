@@ -67,18 +67,18 @@ nmap <leader>q :q<CR>
 """""""""" vim-tmux-navigator customizations
 let g:tmux_navigator_disable_when_zoomed = 1
 let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> <M-Left> :TmuxNavigateLeft<CR>
-inoremap <silent> <M-Left> <ESC>:TmuxNavigateLeft<CR>
-tnoremap <silent> <M-Left> <C-\><C-n>:TmuxNavigateLeft<CR>
-nnoremap <silent> <M-Right> :TmuxNavigateRight<CR>
-inoremap <silent> <M-Right> <ESC>:TmuxNavigateRight<CR>
-tnoremap <silent> <M-Right> <C-\><C-n>:TmuxNavigateRight<CR>
-nnoremap <silent> <M-Up> :TmuxNavigateUp<CR>
-inoremap <silent> <M-Up> <ESC>:TmuxNavigateUp<CR>
-tnoremap <silent> <M-Up> <C-\><C-n>:TmuxNavigateUp<CR>
-nnoremap <silent> <M-Down> :TmuxNavigateDown<CR>
-inoremap <silent> <M-Down> <ESC>:TmuxNavigateDown<CR>
-tnoremap <silent> <M-Down> <C-\><C-n>:TmuxNavigateDown<CR>
+nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
+inoremap <silent> <M-h> <ESC>:TmuxNavigateLeft<CR>
+tnoremap <silent> <M-h> <C-\><C-n>:TmuxNavigateLeft<CR>
+nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
+inoremap <silent> <M-l> <ESC>:TmuxNavigateRight<CR>
+tnoremap <silent> <M-l> <C-\><C-n>:TmuxNavigateRight<CR>
+nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
+inoremap <silent> <M-k> <ESC>:TmuxNavigateUp<CR>
+tnoremap <silent> <M-k> <C-\><C-n>:TmuxNavigateUp<CR>
+nnoremap <silent> <M-j> :TmuxNavigateDown<CR>
+inoremap <silent> <M-j> <ESC>:TmuxNavigateDown<CR>
+tnoremap <silent> <M-j> <C-\><C-n>:TmuxNavigateDown<CR>
 "nnoremap <silent> <M-/> :TmuxNavigatePrevious<cr>
 
 """""""""" Markdown settings
@@ -93,21 +93,6 @@ endfunction
 if has('mac')
 	let g:mkdp_browserfunc='g:Open_mac_chrome_in_new_popup'
 endif
-
-"""""""""" vim-go customizations
-let g:go_gopls_enabled = 0
-" disable vim-go :GoDef short cut (gd)
-" this is handled by LanguageClient [LC]
-" let g:go_def_mapping_enabled = 0
-" better gopls integration?
-" let g:go_info_mode='gopls'
-" let g:go_rename_command = 'gopls'
-" a bit nicer better highlighting
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_types = 1
-" let g:go_highlight_function_parameters = 1
-
 """""""""" coc
 """""""""" coc extensions
 let g:coc_global_extensions = [
@@ -123,9 +108,11 @@ let g:coc_global_extensions = [
 			\'coc-tsserver',
 			\'coc-cmake',
 			\'coc-java',
-			\'coc-sh'
+			\'coc-sh',
+			\'coc-xml'
 			\]
 """""""""" coc customizations
+
 " Give more space for displaying messages.
 " set cmdheight=2
 " Use K to show documentation in preview window.
@@ -163,11 +150,31 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-"
+
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 
+" Add `:Imports` command to organize current buffer.
+command! -nargs=0 Imports :call CocAction('runCommand', 'editor.action.organizeImport')
+
+"""""""""" Go customizations
+let g:go_gopls_enabled = 0
+" disable vim-go :GoDef short cut (gd)
+" this is handled by LanguageClient [LC]
+" let g:go_def_mapping_enabled = 0
+" better gopls integration?
+" let g:go_info_mode='gopls'
+" let g:go_rename_command = 'gopls'
+" a bit nicer better highlighting
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_types = 1
+" let g:go_highlight_function_parameters = 1
+command GoInterface :CocCommand go.impl.cursor
+""""""""""
+
 """""""""" Python customizations
+call coc#config('python', {'pythonPath': $PYENV_VIRTUAL_ENV})
 command Pyterm :CocCommand 'python.startREPL'
 
 """"""""""
