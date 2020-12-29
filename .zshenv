@@ -1,5 +1,5 @@
 # Environment variables
-export SCRIPTSPATH=$HOME/Scripts
+export SCRIPTSPATH=$HOME/mybin
 export PATH=$PATH:$SCRIPTSPATH
 
 # Go envs
@@ -12,12 +12,12 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export WORKPATH=$HOME/work
 if [ -d $WORKPATH/init ]
 then
-    source $WORKPATH/init/.zshrc
+    source $WORKPATH/init/.zshenv
 fi
 
 # Aliases
-alias logview='lnav'
 alias clearfile='cat /dev/null > '
+
 # For convenience
 alias vim=nvim
 alias vi=nvim
@@ -30,4 +30,5 @@ autoload zcalc
 if which ruby >/dev/null && which gem >/dev/null; then PATH="$(ruby -rrubygems -e 'puts Gem.user_dir')/bin:$PATH" fi
 
 # Some FZF setup
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+# export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --no-ignore --follow'
