@@ -1,6 +1,6 @@
 export OMZSH_PATH=${HOME}/.oh-my-zsh
 
-setup: setup-zsh
+setup: pyenv setup-zsh
 
 setup-zsh: $(ZSH) $(OMZSH_PATH) link-zsh-env
 setup-zsh: SH_NAME=$(shell which zsh) 
@@ -21,3 +21,6 @@ link-zsh-env:
 	$(call backup, ${HOME}/.zshenv)
 	ln -s -f ${CURDIR}/.zshenv ${HOME}
 
+# pyenv is part of my Python setup in .zshenv
+pyenv:
+	$(call pacapt, install pyenv)
