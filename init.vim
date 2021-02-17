@@ -16,6 +16,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'm-pilia/vim-ccls', {'do': 'yarn install --frozen-lockfile'}
 Plug 'm-pilia/vim-yggdrasil', {'do': 'yarn install --frozen-lockfile'}
 
+Plug 'hsanson/vim-android'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -57,6 +59,10 @@ nmap <leader>s :w<CR>
 """""""""" Easy quit
 nmap <leader>q :q<CR>
 
+"""""""""" Insert/append a single character
+nnoremap <leader>i :exec "normal i".nr2char(getchar())."\e"<CR>
+nnoremap <leader>a :exec "normal a".nr2char(getchar())."\e"<CR>
+
 """""""""" It just make me crazy
 " set nobackup
 " set nowritebackup
@@ -88,11 +94,16 @@ function! g:Open_mac_chrome_in_new_popup(url)
     silent exe 'silent !open -na "Google Chrome" --args --app=' . a:url
 endfunction
 
+function! g:Open_mac_chromium_in_new_popup(url)
+    silent exe 'silent !open -na "Chromium" --args --app=' . a:url
+endfunction
+
 " TODO: could easily be implemented to all unix platforms, at the moment I
 " only use markdown preview on my mac
 if has('mac')
-	let g:mkdp_browserfunc='g:Open_mac_chrome_in_new_popup'
+	let g:mkdp_browserfunc='g:Open_mac_chromium_in_new_popup'
 endif
+
 """""""""" coc
 """""""""" coc extensions
 let g:coc_global_extensions = [
@@ -212,6 +223,9 @@ vmap <leader>cc :MYComment<CR>
 
 """"""""""" Debugger integration shit
 let g:termdebug_wide=1
+
+""""""""""" #!! Automatica shebang
+inoreabbrev <expr> #!! "#!/usr/bin/env" . (empty(&filetype) ? '' : ' '.&filetype)
 
 """""""""" Add statusline support.
 " TODO: Add a simple color support
