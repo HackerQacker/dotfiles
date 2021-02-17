@@ -16,9 +16,14 @@ key_bindings:
   # Let 'Alt' act like Meta key for brackets (essential for my tmux windows navigation).
   # http://www.meandmark.com/keycodes.html
   - { key: H, mods: Alt,  chars: "\x1bh"}
+  - { key: H, mods: Alt|Shift,  chars: "\x1bH"}
   - { key: J, mods: Alt,  chars: "\x1bj"}
+  - { key: J, mods: Alt|Shift,  chars: "\x1bJ"}
   - { key: K, mods: Alt,  chars: "\x1bk"}
+  - { key: K, mods: Alt|Shift,  chars: "\x1bK"}
   - { key: L, mods: Alt,  chars: "\x1bl"}
+  - { key: L, mods: Alt|Shift,  chars: "\x1bL"}
+  - { key: C, mods: Alt,  chars: "\x1bc"}
   - { key: Space, mods: Alt,  chars: "\x1b "}
   - { key: LBracket, mods: Alt,  chars: "\x1b["}
   - { key: RBracket, mods: Alt,  chars: "\x1b]"}
