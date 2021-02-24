@@ -15,9 +15,10 @@ export PATH="$HOME/.poetry/bin:$PATH"
 alias clearfile='cat /dev/null > '
 
 # For convenience
+export VISUAL=nvim
 alias vim=nvim
 alias vi=nvim
-export VISUAL=nvim
+alias v=nvim
 
 # Some zsh tools
 autoload zcalc
