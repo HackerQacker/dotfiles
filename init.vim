@@ -12,14 +12,14 @@ Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
 " Some coc extensions below
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" TODO: remove it when coc has a builtin call hierarchy
-Plug 'm-pilia/vim-ccls', {'do': 'yarn install --frozen-lockfile'}
-Plug 'm-pilia/vim-yggdrasil', {'do': 'yarn install --frozen-lockfile'}
+Plug 'liuchengxu/vista.vim'
 
 Plug 'hsanson/vim-android'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+
+set hidden
 
 let mapleader = " "
 " filetype plugin on
@@ -35,7 +35,7 @@ command RetabFile execute "normal! gg=G<C-o><C-o>"
 set clipboard+=unnamedplus
 
 " For not having some delays
-" Have to remember' if it will be laggy, that's maybe gonna be the case..
+" Have to remember: if it will be laggy, that's maybe gonna be the case..
 set updatetime=300
 
 " Not gonna use the mouse anyway, but it better set so if someone else will
@@ -54,7 +54,6 @@ set splitright
 
 """""""""" Easy save
 nmap <C-s> :w<CR>
-nmap <leader>s :w<CR>
 
 """""""""" Easy quit
 nmap <leader>q :q<CR>
@@ -108,7 +107,7 @@ endif
 """""""""" coc extensions
 let g:coc_global_extensions = [
 			\'coc-python',
-			\'coc-rls',
+			\'coc-rust-analyzer',
 			\'coc-yaml',
 			\'coc-json',
 			\'coc-snippets',
@@ -124,10 +123,23 @@ let g:coc_global_extensions = [
 			\]
 """""""""" coc customizations
 
+" A little color change which looks nicer to me
+highlight Pmenu ctermbg=LightYellow
+
 " Give more space for displaying messages.
 " set cmdheight=2
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -143,30 +155,57 @@ nmap <leader>rn <Plug>(coc-rename)
 inoremap <silent><expr> <M-space> coc#refresh()
 " Use <Tab> and <S-Tab> to navigate the completion list:
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-" Use <cr> to confirm completion
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Use <CR> to confirm completion
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 " run code actions
-vmap <leader>ca  <Plug>(coc-codeaction-selected)
-nmap <leader>ca  <Plug>(coc-codeaction-selected)
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+vmap <leader>ca <Plug>(coc-codeaction-selected)
+nmap <leader>ca <Plug>(coc-codeaction-selected)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 
 " Add `:Imports` command to organize current buffer.
 command! -nargs=0 Imports :call CocAction('runCommand', 'editor.action.organizeImport')
+
+" Mappings for CoCList
+" Manage extensions.
+nnoremap <silent><nowait> <space>ex  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>cm  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+
+"""""""""" Vista customizations
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
 
 """""""""" Go customizations
 let g:go_gopls_enabled = 0
@@ -187,14 +226,6 @@ command GoInterface :CocCommand go.impl.cursor
 """""""""" Python customizations
 call coc#config('python', {'pythonPath': $PYENV_VIRTUAL_ENV})
 command Pyterm :CocCommand 'python.startREPL'
-
-""""""""""
-
-"""""""""" vim-ccls customizations
-" Automatically close a tree buffer when jumping to a location
-let g:ccls_close_on_jump = v:true
-let g:yggdrasil_no_default_maps = 1
-
 """"""""""
 
 """""""""" FZF customizations
@@ -217,7 +248,7 @@ endfunction
 command MYCommentNewline call MYCommentNewlineFunc()
 nmap <leader>co :MYCommentNewline<CR>
 
-command MYComment execute 'normal!' 'I'.split(&commentstring, '%s')[0].g:my_comment_prefix
+command MYComment execute 'normal!' 'A'.split(&commentstring, '%s')[0].g:my_comment_prefix
 nmap <leader>cc :MYComment<CR>
 vmap <leader>cc :MYComment<CR>
 
@@ -231,12 +262,16 @@ inoreabbrev <expr> #!! "#!/usr/bin/env" . (empty(&filetype) ? '' : ' '.&filetype
 " TODO: Add a simple color support
 set statusline=
 set statusline+=%0*%m%r%w
-" set statusline+=%0*\ %<%F
-set statusline+=%0*\ %<%f
 set statusline+=%0*\ %y
+" set statusline+=%0*\ %<%F
+set statusline+=%0*[
+set statusline+=%0*%<%f:%{NearestMethodOrFunction()}
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+set statusline+=%0*]
 set statusline+=%0*\ %=
 set statusline+=%0*\ %{coc#status()}%{get(b:,'coc_current_function','')}
-set statusline+=%0*\ [%l:%L]
+set statusline+=%0*\ %l/%L
+" set statusline+=%0*\ [%l:%L]
 
 """"""""""" colors
 " I decided it's better to let the terminal (alacritty in my case) to handle
