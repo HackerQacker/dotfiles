@@ -73,6 +73,8 @@ plugins=(
   pip
   pyenv
   poetry
+  z
+  fzf-z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -107,4 +109,3 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
