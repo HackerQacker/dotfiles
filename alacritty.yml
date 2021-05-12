@@ -31,6 +31,7 @@ key_bindings:
   - { key: RBracket, mods: Alt|Shift,  chars: "\x1b}"}
   - { key: 0x2F, mods: Alt|Shift,  chars: "\x1b>"}
   - { key: Comma, mods: Alt|Shift,  chars: "\x1b<"}
+  - { key: P, mods: Alt,  chars: "\x1bp"}
   #- { key: K,      mods: Command, mode: ~Vi, chars: "\x0c"            }
   - { key: Key0,   mods: Command,            action: ResetFontSize    }
   - { key: Equals, mods: Command,            action: IncreaseFontSize }
