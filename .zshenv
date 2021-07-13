@@ -30,6 +30,7 @@ if which ruby >/dev/null && which gem >/dev/null; then PATH="$(ruby -rrubygems -
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
 # export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --no-ignore --follow'
+export FZF_CTRL_T_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
 
 # Android env
 export ANDROID_HOME=$HOME/Library/Android
