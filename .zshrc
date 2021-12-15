@@ -62,6 +62,7 @@ ZSH_THEME="bira"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+export NVM_LAZY=1
 plugins=(
   vi-mode
   git
@@ -71,10 +72,11 @@ plugins=(
   colored-man-pages
   docker
   pip
-  pyenv
+  # pyenv
   poetry
   z
   fzf-z
+  nvm
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -107,5 +109,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+

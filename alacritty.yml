@@ -32,6 +32,8 @@ key_bindings:
   - { key: 0x2F, mods: Alt|Shift,  chars: "\x1b>"}
   - { key: Comma, mods: Alt|Shift,  chars: "\x1b<"}
   - { key: P, mods: Alt,  chars: "\x1bp"}
+  - { key: T, mods: Alt,  chars: "\x1bt"}
+  - { key: N, mods: Alt,  chars: "\x1bn"}
   #- { key: K,      mods: Command, mode: ~Vi, chars: "\x0c"            }
   - { key: Key0,   mods: Command,            action: ResetFontSize    }
   - { key: Equals, mods: Command,            action: IncreaseFontSize }

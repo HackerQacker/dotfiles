@@ -10,6 +10,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'puremourning/vimspector'
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'mfussenegger/nvim-dap'
 " Some coc extensions below
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim'
@@ -103,10 +106,18 @@ if has('mac')
 	let g:mkdp_browserfunc='g:Open_mac_chromium_in_new_popup'
 endif
 
+"""""""""" Vimspector extensions
+let g:vimspector_install_gadgets = [
+			\'debugpy',
+			\'vscode-cpptools',
+			\'CodeLLDB'
+			\]
+""""""""""
+
 """""""""" coc
 """""""""" coc extensions
 let g:coc_global_extensions = [
-			\'coc-python',
+			\'coc-pyright',
 			\'coc-rust-analyzer',
 			\'coc-yaml',
 			\'coc-json',
@@ -119,6 +130,7 @@ let g:coc_global_extensions = [
 			\'coc-cmake',
 			\'coc-java',
 			\'coc-sh',
+			\'coc-markmap',
 			\'coc-xml'
 			\]
 """""""""" coc customizations
@@ -151,6 +163,8 @@ nmap <silent> gr <Plug>(coc-references)
 " Symbol renaming.
 nmap <F6> <Plug>(coc-rename)
 nmap <leader>rn <Plug>(coc-rename)
+" Show call hierarchy
+nmap <silent> gch :call CocActionAsync('showIncomingCalls')<cr>
 " Use <M-space> to trigger completion.
 inoremap <silent><expr> <M-space> coc#refresh()
 " Use <Tab> and <S-Tab> to navigate the completion list:
@@ -229,6 +243,15 @@ command Pyterm :CocCommand 'python.startREPL'
 """"""""""
 
 """""""""" FZF customizations
+" Empty value to disable preview window altogether
+" let g:fzf_preview_window = []
+" let g:fzf_layout = { 'down': '20%' }
+" let g:fzf_layout = { 'window': { 'width': 1.0, 'height': 1.0 } }
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true } }
+let g:fzf_layout = { 'window': 'enew' }
+" let g:fzf_layout = { 'up': '40%' }
+" let g:fzf_layout = { 'window': '10new' }
+
 nnoremap <leader><leader> :Rg<SPACE>
 " nnoremap <leader>f :FZF<CR>
 nnoremap <leader>f :Files<CR>
