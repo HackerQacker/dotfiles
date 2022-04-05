@@ -67,13 +67,9 @@ plugins=(
   vi-mode
   git
   golang
-  kubectl
   brew
   colored-man-pages
   docker
-  pip
-  # pyenv
-  poetry
   z
   fzf-z
   nvm
@@ -109,6 +105,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

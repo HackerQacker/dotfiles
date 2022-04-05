@@ -5,19 +5,19 @@ call plug#begin('~/.vim/plugged')
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'puremourning/vimspector'
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-Plug 'mfussenegger/nvim-dap'
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" Plug 'mfussenegger/nvim-dap'
 " Some coc extensions below
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim'
 
-Plug 'hsanson/vim-android'
+" Plug 'hsanson/vim-android'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -255,6 +255,7 @@ let g:fzf_layout = { 'window': 'enew' }
 nnoremap <leader><leader> :Rg<SPACE>
 " nnoremap <leader>f :FZF<CR>
 nnoremap <leader>f :Files<CR>
+nnoremap <leader>g :GFiles<CR>
 autocmd! FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
