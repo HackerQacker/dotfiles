@@ -106,7 +106,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
+# eval "$(pyenv init --path)"
+# eval "$(pyenv init -)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

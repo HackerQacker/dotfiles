@@ -1,9 +1,6 @@
 export OMZSH_PATH=${HOME}/.oh-my-zsh
 
-setup: install-pyenv setup-zsh
-
-install-pyenv:
-	$(call pacapt, install pyenv)
+setup: setup-zsh
 
 setup-zsh: $(ZSH) $(OMZSH_PATH) link-zsh-env
 setup-zsh: SH_NAME=$(shell which zsh) 

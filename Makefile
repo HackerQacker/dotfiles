@@ -33,6 +33,9 @@ include ${CURDIR}/zsh.mk
 include ${CURDIR}/tmux.mk
 include ${CURDIR}/vim.mk
 
+setup:
+	curl https://pyenv.run | bash
+
 all: setup
 all:
 	@echo DONE!
