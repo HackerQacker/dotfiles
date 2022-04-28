@@ -1,6 +1,6 @@
-env:
+# env:
   # https://github.com/jwilm/alacritty/issues/2566
-  LC_CTYPE: UTF-8
+  # LC_CTYPE: UTF-8
 
 alt_send_esc: false
 
@@ -9,6 +9,8 @@ window:
   # decorations: none
 
 font:
+  normal:
+      family: FiraCode Nerd Font Mono
   size: 14.0
 
 key_bindings:
