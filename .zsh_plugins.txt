@@ -2,7 +2,6 @@
 # zsh-users/zsh-completions
 zimfw/completion
 andrewferrier/fzf-z
-# lincheney/fzf-tab-completion   path:zsh/fzf-zsh-completion.sh
 ohmyzsh/ohmyzsh   path:lib/theme-and-appearance.zsh
 ohmyzsh/ohmyzsh   path:plugins/common-aliases/common-aliases.plugin.zsh
 zsh-users/zsh-autosuggestions

@@ -1,6 +1,9 @@
 export LC_CTYPE=UTF-8
 
-eval "$(starship init zsh)"
+# Initialize prompt
+# eval "$(starship init zsh)"
+autoload -U promptinit; promptinit
+prompt pure
 
 # clone antidote if necessary
 [[ -e ~/.antidote ]] || git clone https://github.com/mattmc3/antidote.git ~/.antidote
