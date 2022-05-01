@@ -2,6 +2,4 @@
 # zsh-users/zsh-completions
 zimfw/completion
 andrewferrier/fzf-z
-ohmyzsh/ohmyzsh   path:lib/theme-and-appearance.zsh
-ohmyzsh/ohmyzsh   path:plugins/common-aliases/common-aliases.plugin.zsh
 zsh-users/zsh-autosuggestions

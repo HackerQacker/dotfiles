@@ -11,10 +11,29 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 # Python Poetry
 export PATH="$HOME/.poetry/bin:$PATH"
 
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushdminus
+setopt auto_cd
+setopt multios
+setopt prompt_subst
+
 # Aliases
 alias clearfile='cat /dev/null > '
 
-# For convenience
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+alias -- -='cd -'
+
+# List directory contents
+alias ls='ls --color'
+alias lsa='ls -lah'
+alias l='ls -lah'
+alias ll='ls -lh'
+alias la='ls -lAh'
+
 export VISUAL=nvim
 alias vim=nvim
 alias vi=nvim
