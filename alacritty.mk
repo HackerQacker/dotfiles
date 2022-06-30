@@ -8,7 +8,9 @@ link-alacritty-config: $(ALACRITTY_PATH)
 	ln -s -f ${CURDIR}/alacritty.yml $(ALACRITTY_PATH)/alacritty.yml
 
 install-alacritty: $(PACAPT)
-	$(call pacapt, install alacritty)
+	# TODO: I ignore errors here since installing alacritty with apt-get 
+	# does not work anymore. Need to fix it
+	-$(call pacapt, install alacritty)
 
 $(ALACRITTY_PATH):
 	mkdir -p $@
