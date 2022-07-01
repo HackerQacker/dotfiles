@@ -12,10 +12,8 @@ $(ZSH): $(PACAPT)
 	$(call pacapt, install zsh)
 
 PURE = $(shell which pure)
-$(PURE): $(PACAPT)
-	# TODO: not sure if it works on linux as well
-	# $(call pacapt, install pure)
-	mkdir -p ${HOME}/.zsh"
+$(PURE):
+	mkdir -p ${HOME}/.zsh
 	git clone https://github.com/sindresorhus/pure.git ${HOME}/.zsh/pure
 
 link-zsh-env:
