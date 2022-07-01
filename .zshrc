@@ -11,6 +11,7 @@ antidote load
 
 # Initialize prompt
 # eval "$(starship init zsh)"
+fpath+=($HOME/.zsh/pure)
 autoload -U promptinit; promptinit
 prompt pure
 

@@ -2,7 +2,7 @@
 
 setup: setup-zsh
 
-setup-zsh: $(PURE) $(ZSH) link-zsh-env link-zsh-plugins
+setup-zsh: $(PURE) $(PYENV) $(ZSH) link-zsh-env link-zsh-plugins
 setup-zsh: SH_NAME=$(shell which zsh) 
 setup-zsh: 
 	$(call maybesudo, chsh -s $(SH_NAME) $(shell whoami))
@@ -14,7 +14,9 @@ $(ZSH): $(PACAPT)
 PURE = $(shell which pure)
 $(PURE): $(PACAPT)
 	# TODO: not sure if it works on linux as well
-	$(call pacapt, install pure)
+	# $(call pacapt, install pure)
+	mkdir -p ${HOME}/.zsh"
+	git clone https://github.com/sindresorhus/pure.git ${HOME}/.zsh/pure
 
 link-zsh-env:
 	$(call backup, ${HOME}/.zprofile)
@@ -33,3 +35,6 @@ link-zsh-plugins:
 # 	$(call backup, ${HOME}/.config/starship.toml)
 # 	ln -s -f ${CURDIR}/starship.toml ${HOME}/.config
 
+PURE = $(shell which pyenv)
+$(PYENV):
+	curl https://pyenv.run | bash
