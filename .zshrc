@@ -17,7 +17,7 @@ prompt pure
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Set editor default keymap to emacs (`-e`) or vi (`-v`)
+# Set editor default keymap to vi
 bindkey -v
 
 eval "$(pyenv init -)"
