@@ -17,6 +17,8 @@ $(PURE):
 	git clone https://github.com/sindresorhus/pure.git ${HOME}/.zsh/pure
 
 link-zsh-env:
+	$(call backup, ${HOME}/.profile)
+	ln -s -f ${CURDIR}/.profile ${HOME}
 	$(call backup, ${HOME}/.zprofile)
 	ln -s -f ${CURDIR}/.zprofile ${HOME}
 	$(call backup, ${HOME}/.zshrc)
