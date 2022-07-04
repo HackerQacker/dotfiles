@@ -33,6 +33,6 @@ link-zsh-plugins:
 # 	$(call backup, ${HOME}/.config/starship.toml)
 # 	ln -s -f ${CURDIR}/starship.toml ${HOME}/.config
 
-PURE = $(shell which pyenv)
+PYENV = $(shell which pyenv)
 $(PYENV):
 	curl https://pyenv.run | bash
