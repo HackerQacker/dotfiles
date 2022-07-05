@@ -20,6 +20,7 @@ prompt pure
 # Set editor default keymap to vi
 bindkey -v
 
+export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 
 zstyle ':completion:*' menu select
