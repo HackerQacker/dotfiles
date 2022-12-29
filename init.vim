@@ -255,7 +255,9 @@ let g:fzf_layout = { 'window': 'enew' }
 nnoremap <leader><leader> :Rg<SPACE>
 " nnoremap <leader>f :FZF<CR>
 nnoremap <leader>f :Files<CR>
-nnoremap <leader>g :GFiles<CR>
+command! -bang IFZF call fzf#run(fzf#wrap({'source': 'fd --type f --hidden --follow --exclude .git'}, <bang>0))
+nnoremap <leader>g :IFZF<CR>
+
 autocmd! FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 

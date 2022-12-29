@@ -1,0 +1,10 @@
+
+
+alt - m: open -a /System/Applications/Calculator.app
+
+ctrl + alt + cmd - right : move_display.sh
+ctrl + alt + cmd - left : move_display.sh
+ctrl + alt + cmd - up : yabai -m window --toggle zoom-fullscreen
+
+
+

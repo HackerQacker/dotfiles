@@ -32,7 +32,9 @@ include ${CURDIR}/alacritty.mk
 include ${CURDIR}/zsh.mk
 include ${CURDIR}/tmux.mk
 include ${CURDIR}/vim.mk
-
+ifeq ($(OS_NAME),darwin)
+include ${CURDIR}/macos/Makefile
+endif
 
 PYENV = $(shell which pyenv)
 $(PYENV):
