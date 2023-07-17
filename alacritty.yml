@@ -2,11 +2,12 @@
   # https://github.com/jwilm/alacritty/issues/2566
   # LC_CTYPE: UTF-8
 
-alt_send_esc: false
+# alt_send_esc: false
 
 window:
   decorations: buttonless
   # decorations: none
+  # option_as_alt: true
 
 font:
   normal:
