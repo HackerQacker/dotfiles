@@ -17,7 +17,7 @@ endif
 all: $(PACAPT)
 
 $(PACAPT):
-	$(call maybesudo, wget -O ${PACAPT} https://github.com/icy/pacapt/raw/ng/pacapt)
+	$(call maybesudo, curl -Lo ${PACAPT} https://github.com/icy/pacapt/raw/ng/pacapt)
 	$(call maybesudo, chmod 755 ${PACAPT})
 
 define pacapt
