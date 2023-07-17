@@ -94,6 +94,7 @@ tnoremap <silent> <M-j> <C-\><C-n>:TmuxNavigateDown<CR>
 " the default browser)
 function! g:Open_mac_chrome_in_new_popup(url)
     silent exe 'silent !open -na "Google Chrome" --args --app=' . a:url
+    " silent exe 'open -na "Google Chrome" --args --app=' . a:url
 endfunction
 
 function! g:Open_mac_chromium_in_new_popup(url)
@@ -103,7 +104,8 @@ endfunction
 " TODO: could easily be implemented to all unix platforms, at the moment I
 " only use markdown preview on my mac
 if has('mac')
-	let g:mkdp_browserfunc='g:Open_mac_chromium_in_new_popup'
+	" let g:mkdp_browserfunc='g:Open_mac_chromium_in_new_popup'
+	let g:mkdp_browserfunc='g:Open_mac_chrome_in_new_popup'
 endif
 
 """""""""" Vimspector extensions
@@ -131,6 +133,7 @@ let g:coc_global_extensions = [
 			\'coc-java',
 			\'coc-sh',
 			\'coc-markmap',
+			\'coc-protobuf',
 			\'coc-xml'
 			\]
 """""""""" coc customizations
@@ -167,12 +170,18 @@ nmap <leader>rn <Plug>(coc-rename)
 nmap <silent> gch :call CocActionAsync('showIncomingCalls')<cr>
 " Use <M-space> to trigger completion.
 inoremap <silent><expr> <M-space> coc#refresh()
+
 " Use <Tab> and <S-Tab> to navigate the completion list:
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-function! s:check_back_space() abort
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+inoremap <silent><expr> <Tab>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -183,9 +192,6 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
