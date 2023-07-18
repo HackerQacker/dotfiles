@@ -2,43 +2,41 @@ return {
 	{
 		'neovim/nvim-lspconfig',
 		dependencies = {
-			{'hrsh7th/cmp-path'},
-			{'hrsh7th/nvim-cmp'},
-			{'hrsh7th/cmp-nvim-lsp'},
-			{'hrsh7th/cmp-buffer'},
+			{ 'hrsh7th/nvim-cmp' },
+			{ 'hrsh7th/cmp-nvim-lsp' },
 			{
 				'williamboman/mason.nvim',
 				build = ':MasonUpdate',
-				config = function() 
-				require('mason').setup({
-					-- ui = {border = 'rounded'}
-				})
+				config = function()
+					require('mason').setup({
+						ui = {border = 'rounded'}
+					})
 
-				-- See :help mason-lspconfig-settings
-				require('mason-lspconfig').setup({
-					ensure_installed = {
-						'clangd',
-						'bufls',
-						'gopls',
-						'bashls',
-						-- Markdown?
-						'pyright',
-						'rust_analyzer',
-						'lua_ls',
-						'jsonls',
-						'lemminx', -- XML
-						'yamlls',
-						'tsserver',
-						'eslint',
-						'html',
-						'cssls',
-						-- 'tailwindcss',
-						'dockerls',
-					}
-				})
+					-- See :help mason-lspconfig-settings
+					require('mason-lspconfig').setup({
+						ensure_installed = {
+							'clangd',
+							'bufls',
+							'gopls',
+							'bashls',
+							-- Markdown?
+							'pyright',
+							'rust_analyzer',
+							'lua_ls',
+							'jsonls',
+							'lemminx', -- XML
+							'yamlls',
+							'tsserver',
+							'eslint',
+							'html',
+							'cssls',
+							-- 'tailwindcss',
+							'dockerls',
+						}
+					})
 				end
 			},
-			{'williamboman/mason-lspconfig.nvim', lazy = true},
+			{ 'williamboman/mason-lspconfig.nvim', lazy = true },
 		},
 
 		config = function()
@@ -51,10 +49,10 @@ return {
 				})
 			end
 
-			sign({name = 'DiagnosticSignError', text = '✘'})
-			sign({name = 'DiagnosticSignWarn', text = '▲'})
-			sign({name = 'DiagnosticSignHint', text = '⚑'})
-			sign({name = 'DiagnosticSignInfo', text = '»'})
+			sign({ name = 'DiagnosticSignError', text = '✘' })
+			sign({ name = 'DiagnosticSignWarn', text = '▲' })
+			sign({ name = 'DiagnosticSignHint', text = '⚑' })
+			sign({ name = 'DiagnosticSignInfo', text = '»' })
 
 			-- See :help vim.diagnostic.config()
 			vim.diagnostic.config({
@@ -68,12 +66,12 @@ return {
 
 			vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
 				vim.lsp.handlers.hover,
-				{border = 'rounded'}
+				{ border = 'rounded' }
 			)
 
 			vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 				vim.lsp.handlers.signature_help,
-				{border = 'rounded'}
+				{ border = 'rounded' }
 			)
 
 
@@ -88,20 +86,20 @@ return {
 				require('cmp_nvim_lsp').default_capabilities()
 			)
 
-			local group = vim.api.nvim_create_augroup('lsp_cmds', {clear = true})
+			local group = vim.api.nvim_create_augroup('lsp_cmds', { clear = true })
 
 			vim.api.nvim_create_autocmd('LspAttach', {
 				group = group,
 				desc = 'LSP actions',
 				callback = function()
-					local opts = {buffer = true}
+					local opts = { buffer = true }
 					-- Buffer local mappings.
 					-- See `:help vim.lsp.*` for documentation on any of the below functions
 					vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
 					vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
 					vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
 					vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-					vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+					-- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
 					-- vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
 					-- vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
 					-- vim.keymap.set('n', '<leader>wl', function()
