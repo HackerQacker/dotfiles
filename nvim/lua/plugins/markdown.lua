@@ -5,12 +5,12 @@ function Open_chrome_in_new_popup(url)
 		'-na',
 		'"Google Chrome"',
 		'--args',
-		'--app='..url,
+		'--app=' .. url,
 	})
 end
 
 function Open_mac_chromium_in_new_popup(url)
-    vim.fn.system({
+	vim.fn.system({
 		'open',
 		'-na',
 		'"Chromium"',
@@ -21,7 +21,7 @@ function Open_mac_chromium_in_new_popup(url)
 end
 
 vim.cmd(
-[[
+	[[
 function Open_mac_chrome_in_new_popup(url)
     exe 'silent !open -na "Google Chrome" --args --app=' . a:url
 endfunction
@@ -42,4 +42,3 @@ return {
 		end
 	}
 }
-

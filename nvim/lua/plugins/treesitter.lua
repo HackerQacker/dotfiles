@@ -16,14 +16,14 @@ return {
 					'vimdoc',
 					'css',
 					'json',
-				'go',
-				'python',
-				'rust',
-				'make',
-				'markdown',
-				'html',
+					'go',
+					'python',
+					'rust',
+					'make',
+					'markdown',
+					'html',
 				},
 			})
-	end
+		end
 	},
 }
