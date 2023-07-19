@@ -7,6 +7,9 @@ return {
 				highlight = {
 					enable = true,
 				},
+				indent = {
+					enable = true
+				},
 				ensure_installed = {
 					'javascript',
 					'typescript',
@@ -17,9 +20,12 @@ return {
 					'css',
 					'json',
 					'go',
+					'gomod',
+					'proto',
 					'python',
 					'rust',
 					'make',
+					'mermaid',
 					'markdown',
 					'html',
 				},
