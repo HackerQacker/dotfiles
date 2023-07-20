@@ -3,7 +3,7 @@ NVIM_CONFIG=${HOME}/.config/nvim
 
 setup: setup-nvim
 
-setup-nvim: install-yarn install-nvim install-pynvim $(NVIM_CONFIG)
+setup-nvim: install-yarn install-nvim install-pynvim link-configs
 setup-nvim: link-ideavim
 
 install-nvim: $(PACAPT)
@@ -20,9 +20,6 @@ install-pynvim:
 link-ideavim:
 	ln -s -f ${CURDIR}/.ideavimrc ${HOME}
 
-install-plugins:
-	nvim --headless +'PlugInstall --sync' +'PlugUpdate' +'qall'
-	nvim --headless +'CocInstall -sync' +'CocUpdateSync|q'
+link-configs:
+	ln -s -f ${CURDIR}/nvim ${NVIM_CONFIG}
 
-$(NVIM_CONFIG):
-	ln -s -f ${CURDIR}/nvim $(NVIM_CONFIG)
