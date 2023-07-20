@@ -5,7 +5,8 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			local builtin = require('telescope.builtin')
-			vim.keymap.set('n', '<leader>f', builtin.find_files, {})
+			vim.keymap.set('n', '<leader>f', function () builtin.find_files() end, {})
+			vim.keymap.set('n', '<leader>g', builtin.find_files, {})
 			vim.keymap.set('n', '<leader><leader>', builtin.live_grep, {})
 			-- vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 			-- vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
@@ -18,4 +19,12 @@ return {
 			require('telescope').load_extension('fzf')
 		end
 	},
+	{
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
+	{
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+},
 }

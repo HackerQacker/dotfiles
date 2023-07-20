@@ -2,9 +2,12 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = 'a'
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.smarttab = true
+vim.opt.breakindent = true
 vim.opt.updatetime = 300
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.splitbelow = true
@@ -32,3 +35,4 @@ vim.api.nvim_create_autocmd('FileType', {
   command = 'nnoremap <buffer> q <cmd>quit<cr>'
 })
 
+vim.api.nvim_set_hl(0, 'Pmenu', {ctermfg='White', ctermbg='DarkGrey', guibg=Grey})

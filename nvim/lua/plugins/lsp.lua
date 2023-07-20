@@ -2,6 +2,7 @@ return {
 	{
 		'neovim/nvim-lspconfig',
 		dependencies = {
+			{ 'nvim-telescope/telescope.nvim' },
 			{ 'hrsh7th/nvim-cmp' },
 			{ 'hrsh7th/cmp-nvim-lsp' },
 			{
@@ -9,7 +10,7 @@ return {
 				build = ':MasonUpdate',
 				config = function()
 					require('mason').setup({
-						ui = {border = 'rounded'}
+						ui = { border = 'rounded' }
 					})
 
 					-- See :help mason-lspconfig-settings
@@ -88,6 +89,8 @@ return {
 
 			local group = vim.api.nvim_create_augroup('lsp_cmds', { clear = true })
 
+			ts_builtin = require('telescope.builtin')
+
 			vim.api.nvim_create_autocmd('LspAttach', {
 				group = group,
 				desc = 'LSP actions',
@@ -109,7 +112,8 @@ return {
 					vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, opts)
 					vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
 					vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-					vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+					vim.keymap.set('n', 'gr', ts_builtin.lsp_references, opts)
+					-- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 					vim.keymap.set('n', '<leader>F', function()
 						vim.lsp.buf.format { async = true }
 					end, opts)
