@@ -7,9 +7,6 @@ PYENV = ${HOME}/.pyenv/bin/pyenv
 setup: setup-zsh
 
 setup-zsh: $(ANTIDOTE) $(PURE) $(PYENV) $(ZSH) link-zsh-env link-zsh-plugins
-setup-zsh: SH_NAME=$(shell which zsh) 
-setup-zsh: 
-	$(call maybesudo, chsh -s $(SH_NAME) $(shell whoami))
 
 $(ZSH): $(PACAPT)
 	$(call pacapt, install zsh)

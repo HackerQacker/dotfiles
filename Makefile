@@ -44,4 +44,7 @@ setup: $(PYENV)
 
 all: setup
 all:
+	$(call maybesudo, chsh -s $(shell which zsh) $(shell whoami))
+
+all:
 	@echo DONE!
