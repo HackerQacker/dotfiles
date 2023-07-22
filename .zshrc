@@ -1,4 +1,5 @@
-export LC_CTYPE=UTF-8
+export LC_ALL=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
 
 # clone antidote if necessary
 [[ -e ~/.antidote ]] || git clone https://github.com/mattmc3/antidote.git ~/.antidote
@@ -32,3 +33,4 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export PATH="/Users/omer/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+

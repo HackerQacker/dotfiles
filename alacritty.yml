@@ -1,6 +1,7 @@
 env:
   # https://github.com/jwilm/alacritty/issues/2566
   LC_ALL: UTF-8
+  LC_CTYPE: UTF-8
 
 # alt_send_esc: false
 
