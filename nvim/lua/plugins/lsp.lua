@@ -89,14 +89,19 @@ return {
 
 			local group = vim.api.nvim_create_augroup('lsp_cmds', { clear = true })
 
-			ts_builtin = require('telescope.builtin')
+			local ts_builtin = require('telescope.builtin')
+
+			vim.api.nvim_create_autocmd("CursorHold", {
+				group = group,
+				callback = vim.diagnostic.open_float,
+			})
 
 			vim.api.nvim_create_autocmd('LspAttach', {
 				group = group,
 				desc = 'LSP actions',
 				callback = function()
 					local opts = { buffer = true }
-					vim.keymap.set('n', 'gl', vim.diagnostic.open_float, opts)
+					-- vim.keymap.set('n', 'gl', vim.diagnostic.open_float, opts)
 					-- Buffer local mappings.
 					-- See `:help vim.lsp.*` for documentation on any of the below functions
 					vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
