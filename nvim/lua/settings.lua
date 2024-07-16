@@ -1,4 +1,7 @@
 
+vim.opt.hidden = true
+-- vim.opt.swapfile = false
+-- vim.opt.backup = false
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = 'a'
@@ -12,6 +15,7 @@ vim.opt.updatetime = 300
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+-- vim.opt.termguicolors = true
 -- vim.opt.shortmess = vim.opt.shortmess .. "c"
 
 
@@ -35,4 +39,5 @@ vim.api.nvim_create_autocmd('FileType', {
   command = 'nnoremap <buffer> q <cmd>quit<cr>'
 })
 
-vim.api.nvim_set_hl(0, 'Pmenu', {ctermfg='White', ctermbg='DarkGrey', guibg=Grey})
+-- vim.api.nvim_set_hl(0, 'Pmenu', {ctermfg='White', ctermbg='DarkGrey', guibg=Grey})
+vim.api.nvim_set_hl(0, 'Pmenu', {ctermfg='White', ctermbg='Black', guibg=Grey})

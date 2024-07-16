@@ -1,4 +1,5 @@
 PACAPT=/usr/local/bin/pacapt
+PACAPT=$(shell which pacapt)
 
 export OS_NAME := $(shell uname | tr '[:upper:]' '[:lower:]')
 

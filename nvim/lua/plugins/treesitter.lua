@@ -1,7 +1,9 @@
 return {
 	{
 		'nvim-treesitter/nvim-treesitter',
+		dependencies = { "nvim-treesitter/nvim-treesitter-refactor" },
 		build = ":TSUpdateSync",
+		event = { "BufReadPost", "BufNewFile" },
 		config = function()
 			require('nvim-treesitter.configs').setup({
 				highlight = {
@@ -27,8 +29,14 @@ return {
 					'make',
 					'mermaid',
 					'markdown',
+					'markdown_inline',
 					'html',
+					'yaml',
+					'bash',
 				},
+				refactor = {
+					enable = true,
+				}
 			})
 		end
 	},

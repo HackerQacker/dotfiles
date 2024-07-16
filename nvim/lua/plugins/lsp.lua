@@ -31,16 +31,22 @@ return {
 							'eslint',
 							'html',
 							'cssls',
+							'terraformls',
 							-- 'tailwindcss',
 							'dockerls',
+							-- 'tilt_ls',
 						}
 					})
+
 				end
 			},
 			{ 'williamboman/mason-lspconfig.nvim', lazy = true },
+			{ "folke/neodev.nvim",                 opts = {} }
 		},
 
 		config = function()
+			local lspconfig = require('lspconfig')
+
 			local sign = function(opts)
 				-- See :help sign_define()
 				vim.fn.sign_define(opts.name, {
@@ -75,10 +81,7 @@ return {
 				{ border = 'rounded' }
 			)
 
-
-
 			-- See :help lspconfig-global-defaults
-			local lspconfig = require('lspconfig')
 			local lsp_defaults = lspconfig.util.default_config
 
 			lsp_defaults.capabilities = vim.tbl_deep_extend(
@@ -93,7 +96,9 @@ return {
 
 			vim.api.nvim_create_autocmd("CursorHold", {
 				group = group,
-				callback = vim.diagnostic.open_float,
+				callback = function()
+					vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+				end
 			})
 
 			vim.api.nvim_create_autocmd('LspAttach', {
@@ -101,7 +106,7 @@ return {
 				desc = 'LSP actions',
 				callback = function()
 					local opts = { buffer = true }
-					-- vim.keymap.set('n', 'gl', vim.diagnostic.open_float, opts)
+					vim.keymap.set('n', 'gl', vim.diagnostic.open_float, opts)
 					-- Buffer local mappings.
 					-- See `:help vim.lsp.*` for documentation on any of the below functions
 					vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
@@ -119,9 +124,16 @@ return {
 					vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
 					vim.keymap.set('n', 'gr', ts_builtin.lsp_references, opts)
 					-- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-					vim.keymap.set('n', '<leader>f', function()
+					vim.keymap.set('n', '<leader>s', function()
 						vim.lsp.buf.format { async = true }
 					end, opts)
+				end
+			})
+
+			vim.api.nvim_create_autocmd('BufWritePre', {
+				pattern = '*.go',
+				callback = function()
+					vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
 				end
 			})
 
@@ -138,6 +150,11 @@ return {
 								completeFunctionCalls = true
 							}
 						}
+					})
+				end,
+				['clangd'] = function()
+					lspconfig.clangd.setup({
+						filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }, -- ignoring proto
 					})
 				end,
 			})

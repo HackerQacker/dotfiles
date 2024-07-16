@@ -11,9 +11,4 @@ export PATH="$HOME/.poetry/bin:$PATH"
 
 # For Apple Silicon
 export PATH="/opt/homebrew/bin:$PATH"
-
 eval "$(/opt/homebrew/bin/brew shellenv)"
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/omer/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
